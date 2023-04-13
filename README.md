@@ -1,38 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# YggdrasilDEX
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+```ascii
+ /$$     /$$ /$$$$$$   /$$$$$$  /$$$$$$$  /$$$$$$$   /$$$$$$   /$$$$$$  /$$$$$$ /$$       /$$$$$$$  /$$$$$$$$ /$$   /$$
+|  $$   /$$//$$__  $$ /$$__  $$| $$__  $$| $$__  $$ /$$__  $$ /$$__  $$|_  $$_/| $$      | $$__  $$| $$_____/| $$  / $$
+ \  $$ /$$/| $$  \__/| $$  \__/| $$  \ $$| $$  \ $$| $$  \ $$| $$  \__/  | $$  | $$      | $$  \ $$| $$      |  $$/ $$/
+  \  $$$$/ | $$ /$$$$| $$ /$$$$| $$  | $$| $$$$$$$/| $$$$$$$$|  $$$$$$   | $$  | $$      | $$  | $$| $$$$$    \  $$$$/
+   \  $$/  | $$|_  $$| $$|_  $$| $$  | $$| $$__  $$| $$__  $$ \____  $$  | $$  | $$      | $$  | $$| $$__/     >$$  $$
+    | $$   | $$  \ $$| $$  \ $$| $$  | $$| $$  \ $$| $$  | $$ /$$  \ $$  | $$  | $$      | $$  | $$| $$       /$$/\  $$
+    | $$   |  $$$$$$/|  $$$$$$/| $$$$$$$/| $$  | $$| $$  | $$|  $$$$$$/ /$$$$$$| $$$$$$$$| $$$$$$$/| $$$$$$$$| $$  \ $$
+    |__/    \______/  \______/ |_______/ |__/  |__/|__/  |__/ \______/ |______/|________/|_______/ |________/|__/  |__/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Built with
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- [React](https://reactjs.org/docs/create-a-new-react-app.html)
+- [Next.js](https://beta.nextjs.org/docs/installation)
+- [Typescript](https://www.typescriptlang.org/download)
+- [TailwindCSS](https://tailwindcss.com/docs/guides/nextjs)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Prerequisites
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- Node.js/NPM - You can use NVM / NVM for Windows to manage Node version installs (minimum 16.4.2).
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Yarn (optional)
 
-## Learn More
+## How to use
 
-To learn more about Next.js, take a look at the following resources:
+Install and run development:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+yarn
+yarn dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Contributing
 
-## Deploy on Vercel
+1. Fork it (<https://github.com/lends-so/yggdrasildex/fork>)
+2. Create your feature branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -am 'feat: some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Create a new Pull Request
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Distributed under the `MIT` License. See `LICENSE` for more information.
