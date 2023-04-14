@@ -1,3 +1,5 @@
+import { AppDispatch } from '@/redux/store'
+import { addWallet } from '@/redux/wallet'
 import { KelprClass } from './keplr'
 import { MetamaskClass } from './metamask'
 import { XDEFIClass } from './xdefi'
@@ -7,28 +9,43 @@ export const WalletsProviders = () => {
     {
       name: 'XDEFI',
       icon: XDEFIClass.icon,
-      connect: async () => {
+      connect: async (dispatch: AppDispatch) => {
         const xdefiClient = new XDEFIClass()
         await xdefiClient.connect()
-        console.log(xdefiClient.address)
+        dispatch(
+          addWallet({
+            address: xdefiClient.getAddress(),
+            type: 'xdefi',
+          })
+        )
       },
     },
     {
       name: 'Keplr',
       icon: KelprClass.icon,
-      connect: async () => {
+      connect: async (dispatch: AppDispatch) => {
         const keplrClass = new KelprClass()
         await keplrClass.connect()
-        console.log(keplrClass.address)
+        dispatch(
+          addWallet({
+            address: keplrClass.getAddress(),
+            type: 'kelpr',
+          })
+        )
       },
     },
     {
       name: 'Metamask',
       icon: MetamaskClass.icon,
-      connect: async () => {
+      connect: async (dispatch: AppDispatch) => {
         const metamaskClass = new MetamaskClass()
         await metamaskClass.connect()
-        console.log(metamaskClass.address)
+        dispatch(
+          addWallet({
+            address: metamaskClass.getAddress(),
+            type: 'metamask',
+          })
+        )
       },
     },
   ]

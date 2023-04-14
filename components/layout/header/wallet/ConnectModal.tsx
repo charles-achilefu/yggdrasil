@@ -1,14 +1,17 @@
-import Modal from '@/components/common/Modal'
+import Modal from '@/components/common/PopupModal'
 import { WalletsProviders } from '@/services/wallets'
 import { Wallet } from '@/types/wallet'
 import Image from 'next/image'
 import { FC, useMemo, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 interface Props {
   closeModal: () => void
 }
 
 const ConnectModal: FC<Props> = ({ closeModal }) => {
+  const dispatch = useDispatch()
+
   const [isChecked, setIsChecked] = useState(false)
   const [selectedWallet, setSelectedWallet] = useState<Wallet | undefined>()
 
@@ -24,7 +27,7 @@ const ConnectModal: FC<Props> = ({ closeModal }) => {
     if (!canConnect || !selectedWallet) return
 
     try {
-      await selectedWallet.connect()
+      await selectedWallet.connect(dispatch)
       closeModal()
     } catch (_err) {
       // TODO check error message

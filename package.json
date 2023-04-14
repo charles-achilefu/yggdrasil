@@ -27,6 +27,7 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.3",
     "@types/node": "18.15.11",
     "@types/react": "18.0.35",
     "@types/react-dom": "18.0.11",
@@ -36,6 +37,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-loading-skeleton": "^3.2.0",
+    "react-redux": "^8.0.5",
     "typescript": "5.0.4"
   },
   "devDependencies": {

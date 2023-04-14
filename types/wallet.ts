@@ -1,3 +1,5 @@
+import { AppDispatch } from "@/redux/store"
+
 export interface WalletClass {
   address: walletAddresses
   connect(): void
@@ -8,7 +10,7 @@ export interface WalletClass {
 export interface Wallet {
   name: string
   icon: string
-  connect: () => Promise<void>
+  connect: (dispatch: AppDispatch) => Promise<void>
 }
 
 export type ConnectionWallets =

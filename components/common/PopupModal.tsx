@@ -6,7 +6,7 @@ interface Props {
   onClose: () => void
 }
 
-const Modal: FC<Props> = ({ children, onClose }) => {
+const PopupModal: FC<Props> = ({ children, onClose }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
@@ -44,4 +44,4 @@ const Modal: FC<Props> = ({ children, onClose }) => {
   )
 }
 
-export default Modal
+export default PopupModal
