@@ -1,3 +1,4 @@
+import Layout from '@/components/layout'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
@@ -22,9 +23,9 @@ const App = ({ Component, pageProps }: AppProps) => {
         <meta name="language" content="English" />
         <meta name="revisit-after" content="7 days" />
       </Head>
-      {/* <Layout> */}
-      <Component {...pageProps} />
-      {/* </Layout> */}
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </>
   )
 }
