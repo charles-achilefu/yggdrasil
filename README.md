@@ -17,6 +17,7 @@
 - [Next.js](https://beta.nextjs.org/docs/installation)
 - [Typescript](https://www.typescriptlang.org/download)
 - [TailwindCSS](https://tailwindcss.com/docs/guides/nextjs)
+- [Jest](https://jestjs.io/docs/getting-started)
 
 ## Prerequisites
 
