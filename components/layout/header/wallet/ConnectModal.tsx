@@ -27,7 +27,9 @@ const ConnectModal: FC<Props> = ({ closeModal }) => {
     if (!canConnect || !selectedWallet) return
 
     try {
-      await selectedWallet.connect(dispatch)
+      // TODO ADD YOUR OWN PHRASE TO TEST CONNECT
+      const phrase = ''
+      await selectedWallet.connect(dispatch, phrase)
       closeModal()
     } catch (_err) {
       // TODO check error message

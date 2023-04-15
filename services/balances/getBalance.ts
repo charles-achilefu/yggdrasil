@@ -8,7 +8,7 @@ import { getBalance as getBalanceETH } from './clients/eth'
 import { getBalance as getBalanceLTC } from './clients/ltc'
 import { getBalance as getBalanceTHOR } from './clients/thorchain'
 
-export const getBalanceWithAddress = async (
+export const getBalanceFromAddress = async (
   network: string,
   address: string
 ) => {

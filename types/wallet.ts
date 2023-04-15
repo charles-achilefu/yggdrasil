@@ -10,7 +10,7 @@ export interface WalletClass {
 export interface Wallet {
   name: string
   icon: string
-  connect: (dispatch: AppDispatch) => Promise<void>
+  connect: (dispatch: AppDispatch, phrase?: string) => Promise<void>
 }
 
 export type ConnectionWallets =

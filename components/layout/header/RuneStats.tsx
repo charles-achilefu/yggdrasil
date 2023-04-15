@@ -19,7 +19,11 @@ const RuneStats: FC = () => {
   return (
     <div className="flex items-center justify-center gap-2 w-1/6 bg-gray1 border-2 border-gray2 rounded-20 h-16 py-1">
       <p className="text-sm text-white90 font-bold">RUNE/USD</p>
-      <p className={`text-sm text-${isPositive ? 'softgreen' : 'smoothred'}`}>
+      <p
+        className={`text-sm ${
+          isPositive ? 'text-softgreen' : 'text-smoothred'
+        }`}
+      >
         {price ? `$${price}` : <SkeletonLoading width={50} />}
       </p>
       {isPositive !== undefined ? (
