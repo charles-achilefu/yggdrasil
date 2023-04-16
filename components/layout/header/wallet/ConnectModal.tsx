@@ -1,4 +1,4 @@
-import Modal from '@/components/common/PopupModal'
+import PopupModal from '@/components/common/PopupModal'
 import { WalletsProviders } from '@/services/wallets'
 import { Wallet } from '@/types/wallet'
 import Image from 'next/image'
@@ -6,13 +6,25 @@ import { FC, useMemo, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 interface Props {
+  openKeystoreMenuModal: (bool: boolean) => void
+  setKeystoreWallet: (wallet: Wallet) => void
+  openLedgerModal: (bool: boolean) => void
+  setLedgerWallet: (wallet: Wallet) => void
+
   closeModal: () => void
 }
 
-const ConnectModal: FC<Props> = ({ closeModal }) => {
+const ConnectModal: FC<Props> = ({
+  openKeystoreMenuModal,
+  setKeystoreWallet,
+  openLedgerModal,
+  setLedgerWallet,
+  closeModal,
+}) => {
   const dispatch = useDispatch()
 
   const [isChecked, setIsChecked] = useState(false)
+
   const [selectedWallet, setSelectedWallet] = useState<Wallet | undefined>()
 
   const canConnect = useMemo(() => {
@@ -27,12 +39,17 @@ const ConnectModal: FC<Props> = ({ closeModal }) => {
     if (!canConnect || !selectedWallet) return
 
     try {
-      // TODO ADD YOUR OWN PHRASE TO TEST CONNECT
-      const phrase = ''
-      await selectedWallet.connect(dispatch, phrase)
+      // TODO: CHECK SUCCESS MESSAGE
+      if (selectedWallet.name.toLowerCase() === 'keystore') {
+        openKeystoreMenuModal(true)
+        setKeystoreWallet(selectedWallet)
+      } else if (selectedWallet.name.toLowerCase() === 'ledger') {
+        openLedgerModal(true)
+        setLedgerWallet(selectedWallet)
+      } else await selectedWallet.connect(dispatch)
       closeModal()
     } catch (_err) {
-      // TODO check error message
+      // TODO: CHECK ERROR MESSAGE
       closeModal()
     }
 
@@ -40,7 +57,7 @@ const ConnectModal: FC<Props> = ({ closeModal }) => {
   }
 
   return (
-    <Modal onClose={closeModal}>
+    <PopupModal size={'large'} onClose={closeModal}>
       <div className="flex flex-col gap-5 p-5">
         <div className="flex items-center justify-between">
           <h2 className="text-base font-bold">Connect Wallet</h2>
@@ -107,7 +124,7 @@ const ConnectModal: FC<Props> = ({ closeModal }) => {
           Connect
         </button>
       </div>
-    </Modal>
+    </PopupModal>
   )
 }
 

@@ -13,7 +13,7 @@ export const getBalance = async (address: string) => {
       const asset = {
         ...getFullAssetFromName(`THOR.${entry.denom.toUpperCase()}`),
       }
-      if (asset) asset.balance = (entry.amount / 10 ** 8).toString()
+      if (asset) asset.balance = entry.amount / 10 ** 8
 
       return asset
     })

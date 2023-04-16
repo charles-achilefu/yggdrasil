@@ -9,9 +9,9 @@ export const getBalance = async (address: string) => {
       `https://dex.binance.org/api/v1/account/${address}`
     )
 
-    return res.data.balances.map((entry: { symbol: any; free: any }) => {
+    return res.data.balances.map((entry: { symbol: string; free: string }) => {
       const asset = { ...getFullAssetFromName(`BNB.${entry.symbol}`) }
-      if (asset) asset.balance = entry.free.toString()
+      if (asset) asset.balance = Number(entry.free)
 
       return asset
     })

@@ -10,7 +10,7 @@ export const getBalance = async (address: string) => {
     )
 
     if (res.data.result.length > 0)
-      asset.balance = (res.data.result[0].amount / 10 ** 6).toString()
+      asset.balance = (res.data.result[0].amount / 10 ** 6)
 
     return [asset]
   } catch (e) {

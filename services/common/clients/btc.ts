@@ -9,7 +9,7 @@ export const getBalance = async (address: string) => {
       `https://blockchain.info/q/addressbalance/${address}`
     )
 
-    if (asset) asset.balance = (Number(res.data) / 10 ** 8).toString()
+    if (asset) asset.balance = Number(res.data) / 10 ** 8
 
     return [asset]
   } catch (e) {

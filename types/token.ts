@@ -4,7 +4,7 @@ export type iToken = {
   fullAsset: string
   chain: string
   type: string
-  balance: string
+  balance: number
   decimals: number
   price: number
 }

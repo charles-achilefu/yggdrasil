@@ -29,6 +29,7 @@
   "dependencies": {
     "@binance-chain/javascript-sdk": "^4.2.0",
     "@cosmos-client/core": "^0.46.1",
+    "@ledgerhq/hw-transport-webusb": "^6.27.13",
     "@psf/bitcoincashjs-lib": "^4.0.3",
     "@reduxjs/toolkit": "^1.9.3",
     "@types/node": "18.15.11",

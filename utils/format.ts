@@ -33,3 +33,9 @@ export const getContractAddressFromToken = (tokenName: string) => {
     return ''
   }
 }
+
+export const formatAddress = (address: string) => {
+  return `${address.toLowerCase().slice(0, 4)}...${address
+    .toLowerCase()
+    .slice(address.length - 4, address.length)}`
+}

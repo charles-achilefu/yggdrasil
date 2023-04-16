@@ -4,9 +4,10 @@ import { createPortal } from 'react-dom'
 interface Props {
   children: ReactNode
   onClose: () => void
+  size?: 'small' | 'medium' | 'large'
 }
 
-const PopupModal: FC<Props> = ({ children, onClose }) => {
+const PopupModal: FC<Props> = ({ children, onClose, size }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
@@ -36,7 +37,16 @@ const PopupModal: FC<Props> = ({ children, onClose }) => {
       }`}
       onClick={handleOverlayClick}
     >
-      <div className="bg-gray4 rounded-20 shadow-lg  transition-all duration-300 max-w-xl w-full">
+      <div
+        className={`bg-gray4 rounded-20 shadow-lg  transition-all duration-300 ${
+          size === 'large'
+            ? 'max-w-xl'
+            : size === 'medium'
+            ? 'max-w-md'
+            : size === 'small'
+            && 'max-w-sm'
+        } w-full`}
+      >
         {children}
       </div>
     </div>,

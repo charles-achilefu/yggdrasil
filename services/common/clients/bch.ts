@@ -10,10 +10,8 @@ export const getBalance = async (address: string) => {
     )
 
     if (asset)
-      asset.balance = (
-        (Number(res.data.confirmed) + Number(res.data.unconfirmed)) /
-        10 ** 8
-      ).toString()
+      asset.balance =
+        (Number(res.data.confirmed) + Number(res.data.unconfirmed)) / 10 ** 8
 
     return [asset]
   } catch (e) {

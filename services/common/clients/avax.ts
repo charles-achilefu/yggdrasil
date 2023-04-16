@@ -21,7 +21,7 @@ const getErc20Balance = (chain: string, address: string, provider: any) => {
     )
     const tokenBalance = await contract.balanceOf(address)
     if (tokenBalance > 0) {
-      token.balance = (tokenBalance / 10 ** token.decimals).toString()
+      token.balance = tokenBalance / 10 ** token.decimals
       return token
     }
   })
@@ -33,7 +33,7 @@ export const getBalance = async (address: string) => {
   try {
     const provider = new ethers.providers.JsonRpcProvider(AVAX_RPC)
     const avaxBal = await provider.getBalance(address)
-    const avaxBalance = ethers.utils.formatEther(avaxBal)
+    const avaxBalance = Number(ethers.utils.formatEther(avaxBal))
 
     const avaxTokens = getErc20Balance('AVAX', address, provider)
 
@@ -43,7 +43,7 @@ export const getBalance = async (address: string) => {
       return element !== undefined
     })
 
-    if (assetAvax) assetAvax.balance = avaxBalance ? avaxBalance : '0.00'
+    if (assetAvax) assetAvax.balance = avaxBalance
 
     return [assetAvax, ...filteredAvaxTokens]
   } catch (e) {

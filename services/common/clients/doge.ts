@@ -9,11 +9,7 @@ export const getBalance = async (address: string) => {
       `https://api.blockchair.com/dogecoin/dashboards/address/${address}?key=B___JP18TAE0ngM6sVv8BZjRiLUfuDHq`
     )
 
-    if (asset)
-      asset.balance = (
-        res.data.data[address].address.balance /
-        10 ** 8
-      ).toString()
+    if (asset) asset.balance = res.data.data[address].address.balance / 10 ** 8
 
     return [asset]
   } catch (e) {
