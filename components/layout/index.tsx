@@ -7,9 +7,9 @@ interface Props {
 
 const Layout: FC<Props> = ({ children }) => {
   return (
-    <div className="bg-gray2 h-screen">
+    <div className="flex bg-gray2 justify-center w-screen h-screen">
       <Header />
-      <div className="mx-auto max-w-7xl">{children}</div>
+      <div className="flex-col container mx-auto px-4 sm:px-6 md:px-8">{children}</div>
     </div>
   )
 }

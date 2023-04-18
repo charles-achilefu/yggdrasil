@@ -95,7 +95,7 @@ const Wallet: FC = () => {
         </div>
       ) : (
         <button
-          className="flex items-center justify-center font-bold text-gray3 w-1/6 bg-smoothgreen border-2 border-gray2 rounded-20 h-16 py-1"
+          className="flex items-center font-bold text-gray3 px-4 bg-smoothgreen border-2 border-gray2 rounded-20 sm:px-4 sm:p-2 px-2 py-1 sm:mr-12 sm:h-14 h-16"
           onClick={toggleIsConnectModal}
         >
           Connect

@@ -4,18 +4,18 @@ import Image from 'next/image'
 const Trade: NextPage = () => {
   return (
     <main>
-      <div className="flex flex-col items-center justify-center h-screen">
-        <div className="flex flex-col justify-center w-1/2 min-h-1/2 p-4 rounded-lg bg-gray-900 shadow-lg">
-          <div className="flex flex-row p-2 w-436 h-40 gap-26 justify-center items-center">
-            <div className='flex flex-row'>
-              <button className='p-4' >
+      <div className="flex flex-col items-center h-screen justify-center my-8">
+        <div className="flex flex-col justify-center p-4 rounded-lg bg-gray-900 shadow-lg">
+          <div className="flex flex-row gap-26 justify-center items-center">
+            <div className='flex-1 flex-row p-2'>
+              <button className='p-2'>
                 Swap
               </button>
-              <button >
+              <button className='p-2 text-gray-400' >
                 Send
               </button>
             </div>
-            <div className='flex flex-row p-2'>
+            <div className='flex flex-row px-4'>
               <button>
                 <Image
                   src="/icons/refresh.svg"
@@ -34,37 +34,46 @@ const Trade: NextPage = () => {
               </button>
             </div>
           </div>
-          <div className='flex flex-col justify-start gap-6 w-436 h-307'>
-            <div className="flex flex-col items-start px-20 w-436 h-124 bg-gray-900">
+          <div className='flex flex-col justify-start '>
+            <div className="flex-1 flex-col items-start p-4">
               <div className="flex items-center">
-                <div className="flex-1 font-AeonikPro-700 text-32 leading-40">
-                  <p>2.5</p>
+                <div className="flex-1">
+                  <p className='font-AeonikPro-700 font-normal font-bold text-4xl leading-10'>2.5</p>
                 </div>
-                <div className="flex-grow flex-shrink-0 box-border border border-gray-800 rounded-lg flex items-center px-3 py-2 gap-x-6">
+                <div className="flex flex-shrink box-border border border-gray-800 rounded-lg flex items-center px-3 py-2 gap-x-6">
                   <Image
                     src="/icons/cryptoIcons/eth.svg"
                     alt="settings"
-                    width="64"
-                    height="64"
+                    width="44"
+                    height="44"
                   />
                   <div className='flex flex-col'>
                     <p>ETH</p>
                     <p>Native</p>
                   </div>
-                  <Image
-                    src="/icons/dropdown.svg"
-                    alt="settings"
-                    width="32"
-                    height="32"
-                  />
+                  <button>
+                    <Image
+                      src="/icons/dropdown.svg"
+                      alt="settings"
+                      width="32"
+                      height="32"
+                    />
+                  </button>
                 </div>
               </div>
-              <div className="flex flex-row justify-between items-center px-0 gap-x-14">
-                {/* Content of the element */}
+              <div className="flex flex-row justify-between items-center py-2 gap-x-14">
+                <p>$5,271.39</p>
+                <div className='flex items-center w-124 p-2'>
+                  <p>
+                    Balance: 52.49
+                  </p>
+                  <button className='text-blue-400 pl-2'>MAX</button>
+                </div>
               </div>
             </div>
-            <div className='w-434 h-0 border border-gray-800 transform rotate-0.13'></div>
-            <div className="flex flex-row justify-center items-center gap-10 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-md flex-none order-3 flex-grow">
+
+            <div className="flex flex-row items-center justify">
+              <div className='flex-1 h-0 border border-gray-800 item-start' />
               <button >
                 <Image
                   src="/icons/arrow.svg"
@@ -73,36 +82,72 @@ const Trade: NextPage = () => {
                   height="32"
                 />
               </button>
+              <div className='flex-1 h-0 border border-gray-800' />
             </div>
-            <div className='flex flex-row justify-between items-center px-8 py-12 gap-x-177 w-436 h-40 bg-gray-900 rounded-md'>
-              <div className='flex flex-row items-center px-0 gap-2 w-197 h-18'>
+            <div className="flex-1 flex-col items-start p-4">
+              <div className="flex items-center">
+                <div className="flex-1">
+                  <p className='font-AeonikPro-700 font-normal font-bold text-4xl leading-10'>2.5</p>
+                </div>
+                <div className="flex flex-shrink box-border border border-gray-800 rounded-lg flex items-center px-3 py-2 gap-x-6">
+                  <Image
+                    src="/icons/cryptoIcons/usdt.svg"
+                    alt="settings"
+                    width="44"
+                    height="44"
+                  />
+                  <div className='flex flex-col'>
+                    <p>USDT</p>
+                    <p>Native</p>
+                  </div>
+                  <button>
+                    <Image
+                      src="/icons/dropdown.svg"
+                      alt="settings"
+                      width="32"
+                      height="32"
+                    />
+                  </button>
+                </div>
+              </div>
+              <div className="flex flex-row justify-between items-center py-2 gap-x-14">
+                <p>$5,271.39</p>
+                <div className='flex items-center w-124 p-2'>
+                  <p>
+                    Balance: 300
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className='flex flex-row items-center rounded-md px-4'>
+              <div className='flex flex-row items-center pr-4'>
                 <Image
                   src="/icons/info.svg"
                   alt='info'
                   width="16"
                   height="16"
                 />
-                <p>1 ETH = 1,956.52 USDT ($1,577.07)</p>
-                <div className='flex flex-row justify-end items-center ml-24 px-0 gap-2 w-92 h-24'>
+              </div>
+              <p className='flex-1 '>1 ETH = 1,956.52 USDT ($1,577.07)</p>
+              <div className='flex items-center '>
+                <Image
+                  src="/icons/fuel.svg"
+                  alt='fuel'
+                  width="68"
+                  height="24"
+                />
+                <button>
                   <Image
-                    src="/icons/fuel.svg"
+                    src="/icons/dropdown.svg"
                     alt='fuel'
-                    width="68"
+                    width="24"
                     height="24"
                   />
-                  <button>
-                    <Image
-                      src="/icons/dropdown.svg"
-                      alt='fuel'
-                      width="24"
-                      height="24"
-                    />
-                  </button>
-                </div>
+                </button>
               </div>
             </div>
           </div>
-          <div className="flex flex-grow text-black justify-center p-3 w-436 bg-teal-500 rounded-lg " >
+          <div className="flex flex-grow text-black justify-center py-3 my-2 mt-4 bg-teal-500 rounded-lg " >
             <button >
               Swap
             </button>

@@ -17,7 +17,7 @@ const RuneStats: FC = () => {
   }, [])
 
   return (
-    <div className="flex items-center justify-center gap-3 w-1/6 bg-gray1 border-2 border-gray2 rounded-20 h-16 py-1">
+    <div className="flex flex-row items-center justify-center bg-gray1 border-2 border-gray2 rounded-20 p-4 sm:px-4 sm:p-4 h-16 ">
       <p className="text-sm text-white90 font-bold">RUNE/USD</p>
       <p
         className={`text-sm ${
