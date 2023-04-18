@@ -19,6 +19,10 @@ export type ConnectionWallets =
   | 'ledger'
   | 'metamask'
   | 'kelpr'
+  | 'coinbase'
+  | 'brave'
+  | 'walletconnect'
+  | 'trustwallet'
 
 export type Chains =
   | 'avax'

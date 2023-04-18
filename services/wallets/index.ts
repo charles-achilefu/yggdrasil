@@ -2,10 +2,14 @@ import { AppDispatch } from '@/redux/store'
 import { addWallet } from '@/redux/wallet'
 import { Chains, walletAddresses } from '@/types/wallet'
 import { getBalanceFromAddress } from '../common/getBalance'
+import { BraveClass } from './brave'
+import { CoinbaseClass } from './coinbase'
 import { KelprClass } from './keplr'
 import { KeystoreClass } from './keystore'
 import { LedgerClass } from './ledger'
 import { MetamaskClass } from './metamask'
+import { TrustwalletClass } from './trustwallet'
+import { WalletconnectClass } from './walletconnect'
 import { XDEFIClass } from './xdefi'
 
 export const WalletsProviders = () => {
@@ -111,7 +115,79 @@ export const WalletsProviders = () => {
         balance(dispatch, address)
       },
     },
+    {
+      name: 'Coinbase',
+      icon: CoinbaseClass.icon,
+      connect: async (dispatch: AppDispatch) => {
+        const coinbaseClass = new CoinbaseClass()
+        await coinbaseClass.connect()
+        const address = coinbaseClass.getAddress()
 
-    // TODO: WALLETS TO ADD: [TRUST WALLET, COINBASE WALLET, BRAVE WALLET, TREZOR]
+        dispatch(
+          addWallet({
+            address,
+            type: 'coinbase',
+          })
+        )
+
+        balance(dispatch, address)
+      },
+    },
+    {
+      name: 'Brave',
+      icon: BraveClass.icon,
+      connect: async (dispatch: AppDispatch) => {
+        const braveClass = new BraveClass()
+        await braveClass.connect()
+        const address = braveClass.getAddress()
+
+        dispatch(
+          addWallet({
+            address,
+            type: 'brave',
+          })
+        )
+
+        balance(dispatch, address)
+      },
+    },
+    {
+      name: 'Wallet Connect',
+      icon: WalletconnectClass.icon,
+      connect: async (dispatch: AppDispatch) => {
+        const walletconnectClass = new WalletconnectClass()
+        await walletconnectClass.connect()
+        const address = walletconnectClass.getAddress()
+
+        dispatch(
+          addWallet({
+            address,
+            type: 'walletconnect',
+          })
+        )
+
+        balance(dispatch, address)
+      },
+    },
+    {
+      name: 'Trust Wallet',
+      icon: TrustwalletClass.icon,
+      connect: async (dispatch: AppDispatch) => {
+        const trustWalletClass = new TrustwalletClass()
+        await trustWalletClass.connect()
+        const address = trustWalletClass.getAddress()
+
+        dispatch(
+          addWallet({
+            address,
+            type: 'trustwallet',
+          })
+        )
+
+        balance(dispatch, address)
+      },
+    },
+
+    // TODO: WALLETS TO ADD: [TREZOR]
   ]
 }

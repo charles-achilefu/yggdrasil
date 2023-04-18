@@ -17,14 +17,14 @@ const RuneStats: FC = () => {
   }, [])
 
   return (
-    <div className="flex items-center justify-center gap-3 w-1/6 bg-gray1 border-2 border-gray2 rounded-20 h-16 py-1">
-      <p className="text-sm text-white90 font-bold">RUNE/USD</p>
+    <div className="flex items-center justify-center gap-3 w-1/6 bg-gray1 border-2 border-gray2 rounded-20 h-16 py-1 lg:gap-1.5 md:w-1/3 sm:hidden">
+      <p className="text-sm md:text-sm text-white90 font-bold">RUNE/USD</p>
       <p
-        className={`text-sm ${
+        className={`text-sm lg:text-xs ${
           isPositive ? 'text-softgreen' : 'text-smoothred'
         }`}
       >
-        {price ? `$${price}` : <SkeletonLoading width={50} />}
+        {price ? `$${price.toFixed(2)}` : <SkeletonLoading width={50} />}
       </p>
       {isPositive !== undefined ? (
         <Image

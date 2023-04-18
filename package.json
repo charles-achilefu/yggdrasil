@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@binance-chain/javascript-sdk": "^4.2.0",
+    "@coinbase/wallet-sdk": "^3.6.5",
     "@cosmos-client/core": "^0.46.1",
     "@ledgerhq/hw-transport-webusb": "^6.27.13",
     "@psf/bitcoincashjs-lib": "^4.0.3",
@@ -35,6 +36,8 @@
     "@types/node": "18.15.11",
     "@types/react": "18.0.35",
     "@types/react-dom": "18.0.11",
+    "@walletconnect/client": "^1.8.0",
+    "@walletconnect/qrcode-modal": "^1.8.0",
     "@xchainjs/xchain-binance": "^5.6.8",
     "@xchainjs/xchain-bitcoin": "^0.21.4",
     "@xchainjs/xchain-bitcoincash": "^0.15.11",

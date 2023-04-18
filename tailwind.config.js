@@ -24,6 +24,12 @@ module.exports = {
       borderRadius: {
         20: '20px',
       },
+      screens: {
+        xl: { max: '1200px' },
+        lg: { min: '767px', max: '1024px' },
+        md: { min: '479px', max: '768px' },
+        sm: { max: '480px' },
+      },
       // fontFamily: {
       //   sans: ['AeonikProTRIAL', 'Helvetica', 'Arial', 'sans-serif'],
       // },
