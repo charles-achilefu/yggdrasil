@@ -2,9 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  @font-face {
+    font-family: 'AeonikPro';
+    src: url('/font/AeonikPro-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'AeonikPro';
+    src: url('/font/AeonikPro-Regular.woff2') format('woff2');
+    font-weight: 500;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'AeonikPro';
+    src: url('/font/AeonikPro-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-display: swap;
+  }
+}
+
 body {
   color: rgb(255, 255, 255, 0.9);
   user-select: none;
+  font-family: 'AeonikPro';
 }
 
 .no-overflow-x {

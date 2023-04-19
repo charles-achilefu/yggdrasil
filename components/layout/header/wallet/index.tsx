@@ -1,3 +1,4 @@
+import Dropdown from '@/components/common/Dropdown'
 import { store } from '@/redux/store'
 import {
   Chains,
@@ -28,6 +29,7 @@ const Wallet: FC = () => {
   const [currentAddress, setCurrentAddress] = useState('')
   const [, setCurrIndex] = useState(0)
   const [addressChain, setAddressChain] = useState('')
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
   const isConnected = useMemo(() => {
     return walletAddress && walletType
@@ -73,30 +75,49 @@ const Wallet: FC = () => {
   return (
     <>
       {isConnected ? (
-        <div className="flex items-center justify-center gap-3 w-1/6 bg-gray1 border-2 border-gray2 rounded-20 h-16 py-1 cursor-pointer md:w-1/3 sm:w-1/2">
-          <div className="relative">
+        <div
+          className="relative w-1/6 bg-gray1 border-2 border-gray2 rounded-20  cursor-pointer md:w-1/3 sm:w-1/2"
+          onMouseEnter={() => setIsDropdownOpen(true)}
+          onMouseLeave={() => setIsDropdownOpen(false)}
+        >
+          <div className="flex items-center justify-center gap-3 h-16 py-1">
+            <div className="relative">
+              <Image
+                src={`/wallets/${walletType}.svg`}
+                alt={`${walletType}-wallet`}
+                width="20"
+                height="20"
+              />
+              <Image
+                className="absolute"
+                style={{ right: '-4px', bottom: '-4px' }}
+                src={`/tokens/${addressChain}.svg`}
+                alt={`${addressChain}-token`}
+                width="12"
+                height="12"
+              />
+            </div>
+            <p>{formatAddress(currentAddress)}</p>
             <Image
-              src={`/wallets/${walletType}.svg`}
-              alt={`${walletType}-wallet`}
-              width="20"
-              height="20"
-            />
-            <Image
-              className="absolute"
-              style={{ right: '-4px', bottom: '-4px' }}
-              src={`/tokens/${addressChain}.svg`}
-              alt={`${addressChain}-token`}
-              width="12"
-              height="12"
+              className={`transition-all duration-500 ${
+                isDropdownOpen ? '-rotate-180' : 'rotate-0'
+              }`}
+              src="/icons/dropdown.svg"
+              alt="dropdown-icon"
+              width="18"
+              height="18"
             />
           </div>
-          <p>{formatAddress(currentAddress)}</p>
-          <Image
-            src="/icons/dropdown.svg"
-            alt="dropdown-icon"
-            width="18"
-            height="18"
-          />
+          <Dropdown isDropdownOpen={isDropdownOpen}>
+            <div>
+              <div>
+                <p>Addresses</p>
+              </div>
+              <div>
+                <p>Disconnect</p>
+              </div>
+            </div>
+          </Dropdown>
         </div>
       ) : (
         <button

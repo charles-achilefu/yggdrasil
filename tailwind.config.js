@@ -30,9 +30,9 @@ module.exports = {
         md: { min: '479px', max: '768px' },
         sm: { max: '480px' },
       },
-      // fontFamily: {
-      //   sans: ['AeonikProTRIAL', 'Helvetica', 'Arial', 'sans-serif'],
-      // },
+      fontFamily: {
+        AeonikPro: ['AeonikPro', 'Helvetica', 'Arial', 'sans-serif'],
+      },
     },
   },
   plugins: [],
