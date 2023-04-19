@@ -1,6 +1,8 @@
 import PopupModal from '@/components/common/PopupModal'
+import { setNotification } from '@/redux/notification'
 import { decrypt } from '@/services/keystore/connect'
 import { Wallet } from '@/types/wallet'
+import { isError } from '@/utils/notification'
 import { Keystore } from '@xchainjs/xchain-crypto'
 import Image from 'next/image'
 import { FC, useMemo, useState } from 'react'
@@ -55,6 +57,9 @@ const ConnectKeystore: FC<Props> = ({
     if (!password || !keystoreContent) return
 
     const response = await decrypt(keystoreContent, password)
+
+    if (isError(response)) return dispatch(setNotification(response))
+
     keystoreWallet.connect(dispatch, response)
     closeKeystoreMenuModal()
   }

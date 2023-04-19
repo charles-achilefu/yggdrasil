@@ -1,20 +1,21 @@
 import { WalletClass, walletAddresses } from '@/types/wallet'
+import { generateError, generateSuccess } from '@/utils/notification'
 
 export class TrustwalletClass implements WalletClass {
   static icon: string = '/wallets/trustwallet.svg'
   address: walletAddresses = {}
 
-  async getTrustWalletInjectedProvider({ timeout } = { timeout: 3000 }) {
+  async getTrustWalletInjectedProvider() {
     const provider = this.getTrustWalletFromWindow()
 
     if (provider) {
       return provider
     }
 
-    return this.listenForTrustWalletInitialized({ timeout })
+    return this.listenForTrustWalletInitialized()
   }
 
-  async listenForTrustWalletInitialized({ timeout } = { timeout: 3000 }) {
+  async listenForTrustWalletInitialized() {
     return new Promise((resolve) => {
       const handleInitialization = () => {
         resolve(this.getTrustWalletFromWindow())
@@ -31,7 +32,7 @@ export class TrustwalletClass implements WalletClass {
           { once: true }
         )
         resolve(null)
-      }, timeout)
+      })
     })
   }
 
@@ -75,20 +76,28 @@ export class TrustwalletClass implements WalletClass {
 
   constructor() {}
 
+  canConnect() {
+    return generateSuccess(
+      'All checks passed, ready to connect with your Trust wallet.'
+    )
+  }
+
   async connect() {
     try {
       const injectedProvider = await this.getTrustWalletInjectedProvider()
+      if (!injectedProvider)
+        return generateError('Please install the Trust Wallet extension.')
 
       const accounts = await injectedProvider.request({
         method: 'eth_requestAccounts',
       })
 
-      if (accounts) {
-        this.address['eth'] = accounts[0]
-        this.address['avax'] = accounts[0]
-      }
+      this.address['eth'] = accounts[0]
+      this.address['avax'] = accounts[0]
+
+      return generateSuccess('Trust wallet has been connected!')
     } catch (e) {
-      return
+      return generateError('User request connect rejected, Try again!')
     }
   }
 

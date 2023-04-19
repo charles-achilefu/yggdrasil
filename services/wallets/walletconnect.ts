@@ -1,4 +1,5 @@
 import { WalletClass, walletAddresses } from '@/types/wallet'
+import { generateError, generateSuccess } from '@/utils/notification'
 import WalletConnect from '@walletconnect/client'
 import QRCodeModal from '@walletconnect/qrcode-modal'
 
@@ -16,12 +17,15 @@ export class WalletconnectClass implements WalletClass {
     this.connector = connector
   }
 
+  canConnect() {
+    return generateSuccess(
+      'All checks passed, ready to connect with your WalletConnect wallet.'
+    )
+  }
+
   async connect() {
     try {
-      if (!this.connector.connected) {
-        // Create a dialogue
-        await this.connector.createSession()
-      }
+      if (!this.connector.connected) await this.connector.createSession()
 
       // Subscribe to connection events
       this.connector.on(
@@ -31,16 +35,18 @@ export class WalletconnectClass implements WalletClass {
           payload: { params: { accounts: any; chainId: any }[] }
         ) => {
           if (error) {
-            throw error
+            return generateError('User request connect rejected, Try again!')
           }
           // After the connection is successful, the wallet account and chain ID will be returned
-          const { accounts, chainId } = payload.params[0]
+          const { accounts } = payload.params[0]
           this.address['eth'] = accounts[0]
           this.address['avax'] = accounts[0]
+
+          return generateSuccess('WalletConnect wallet has been connected!')
         }
       )
     } catch (e) {
-      return
+      return generateError('User request connect rejected, Try again!')
     }
   }
 

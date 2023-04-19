@@ -1,5 +1,5 @@
 {
-  "name": "yggdrasildex",
+  "name": "yggdrasil",
   "version": "0.1.0",
   "description": "An open source decentralised exchange built on THORChain.",
   "contributors": [
@@ -12,10 +12,10 @@
       "github": "Thorian1te"
     }
   ],
-  "homepage": "https://yggdrasildex.lends.so",
+  "homepage": "https://yggdrasil.lends.so",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lends/yggdrasildex"
+    "url": "https://github.com/lends/yggdrasil"
   },
   "license": "MIT",
   "scripts": {
@@ -56,6 +56,7 @@
     "next": "13.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hot-toast": "^2.4.0",
     "react-loading-skeleton": "^3.2.0",
     "react-redux": "^8.0.5",
     "typescript": "5.0.4"

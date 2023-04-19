@@ -9,8 +9,8 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
-        <title>YggdrasilDEX</title>
-        <meta name="title" content="YggdrasilDEX" />
+        <title>Yggdrasil</title>
+        <meta name="title" content="Yggdrasil" />
         <meta
           name="description"
           content="An open source decentralised exchange built on THORChain."

@@ -39,7 +39,6 @@ const ConnectModal: FC<Props> = ({
     if (!canConnect || !selectedWallet) return
 
     try {
-      // TODO: CHECK SUCCESS MESSAGE
       if (selectedWallet.name.toLowerCase() === 'keystore') {
         openKeystoreMenuModal(true)
         setKeystoreWallet(selectedWallet)
@@ -49,7 +48,6 @@ const ConnectModal: FC<Props> = ({
       } else await selectedWallet.connect(dispatch)
       closeModal()
     } catch (_err) {
-      // TODO: CHECK ERROR MESSAGE
       closeModal()
     }
 

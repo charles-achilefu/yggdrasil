@@ -1,6 +1,9 @@
+import { setNotification } from '@/redux/notification'
 import { AppDispatch } from '@/redux/store'
+import { updateBalance } from '@/redux/tokens'
 import { addWallet } from '@/redux/wallet'
 import { Chains, walletAddresses } from '@/types/wallet'
+import { isError } from '@/utils/notification'
 import { getBalanceFromAddress } from '../common/getBalance'
 import { BraveClass } from './brave'
 import { CoinbaseClass } from './coinbase'
@@ -9,19 +12,15 @@ import { KeystoreClass } from './keystore'
 import { LedgerClass } from './ledger'
 import { MetamaskClass } from './metamask'
 import { TrustwalletClass } from './trustwallet'
-import { WalletconnectClass } from './walletconnect'
 import { XDEFIClass } from './xdefi'
 
 export const WalletsProviders = () => {
   const balance = async (dispatch: AppDispatch, address: walletAddresses) => {
-    // const balances: any[] = []
     Object.keys(address).forEach(async (key: string) => {
       const addressValue = address[key as Chains] as string
       const balance = await getBalanceFromAddress(key, addressValue)
-      console.log({ addressValue, key, balance })
-      // balances.push(balance)
+      dispatch(updateBalance(balance))
     })
-    // console.log(balances)
   }
 
   return [
@@ -30,7 +29,16 @@ export const WalletsProviders = () => {
       icon: XDEFIClass.icon,
       connect: async (dispatch: AppDispatch) => {
         const xdefiClient = new XDEFIClass()
-        await xdefiClient.connect()
+        const canConnectNotification = xdefiClient.canConnect()
+
+        if (isError(canConnectNotification))
+          return dispatch(setNotification(canConnectNotification))
+
+        const connectNotification = await xdefiClient.connect()
+
+        if (isError(connectNotification))
+          return dispatch(setNotification(connectNotification))
+
         const address = xdefiClient.getAddress()
 
         dispatch(
@@ -40,6 +48,8 @@ export const WalletsProviders = () => {
           })
         )
 
+        dispatch(setNotification(connectNotification))
+
         balance(dispatch, address)
       },
     },
@@ -48,15 +58,26 @@ export const WalletsProviders = () => {
       icon: KelprClass.icon,
       connect: async (dispatch: AppDispatch) => {
         const keplrClass = new KelprClass()
-        await keplrClass.connect()
+        const canConnectNotification = keplrClass.canConnect()
+
+        if (isError(canConnectNotification))
+          return dispatch(setNotification(canConnectNotification))
+
+        const connectNotification = await keplrClass.connect()
+
+        if (isError(connectNotification))
+          return dispatch(setNotification(connectNotification))
+
         const address = keplrClass.getAddress()
 
         dispatch(
           addWallet({
             address,
-            type: 'kelpr',
+            type: 'keplr',
           })
         )
+
+        dispatch(setNotification(connectNotification))
 
         balance(dispatch, address)
       },
@@ -66,7 +87,16 @@ export const WalletsProviders = () => {
       icon: MetamaskClass.icon,
       connect: async (dispatch: AppDispatch) => {
         const metamaskClass = new MetamaskClass()
-        await metamaskClass.connect()
+        const canConnectNotification = metamaskClass.canConnect()
+
+        if (isError(canConnectNotification))
+          return dispatch(setNotification(canConnectNotification))
+
+        const connectNotification = await metamaskClass.connect()
+
+        if (isError(connectNotification))
+          return dispatch(setNotification(connectNotification))
+
         const address = metamaskClass.getAddress()
 
         dispatch(
@@ -75,6 +105,8 @@ export const WalletsProviders = () => {
             type: 'metamask',
           })
         )
+
+        dispatch(setNotification(connectNotification))
 
         balance(dispatch, address)
       },
@@ -120,7 +152,16 @@ export const WalletsProviders = () => {
       icon: CoinbaseClass.icon,
       connect: async (dispatch: AppDispatch) => {
         const coinbaseClass = new CoinbaseClass()
-        await coinbaseClass.connect()
+        const canConnectNotification = coinbaseClass.canConnect()
+
+        if (isError(canConnectNotification))
+          return dispatch(setNotification(canConnectNotification))
+
+        const connectNotification = await coinbaseClass.connect()
+
+        if (isError(connectNotification))
+          return dispatch(setNotification(connectNotification))
+
         const address = coinbaseClass.getAddress()
 
         dispatch(
@@ -130,6 +171,8 @@ export const WalletsProviders = () => {
           })
         )
 
+        dispatch(setNotification(connectNotification))
+
         balance(dispatch, address)
       },
     },
@@ -138,7 +181,16 @@ export const WalletsProviders = () => {
       icon: BraveClass.icon,
       connect: async (dispatch: AppDispatch) => {
         const braveClass = new BraveClass()
-        await braveClass.connect()
+        const canConnectNotification = braveClass.canConnect()
+
+        if (isError(canConnectNotification))
+          return dispatch(setNotification(canConnectNotification))
+
+        const connectNotification = await braveClass.connect()
+
+        if (isError(connectNotification))
+          return dispatch(setNotification(connectNotification))
+
         const address = braveClass.getAddress()
 
         dispatch(
@@ -148,33 +200,53 @@ export const WalletsProviders = () => {
           })
         )
 
-        balance(dispatch, address)
-      },
-    },
-    {
-      name: 'Wallet Connect',
-      icon: WalletconnectClass.icon,
-      connect: async (dispatch: AppDispatch) => {
-        const walletconnectClass = new WalletconnectClass()
-        await walletconnectClass.connect()
-        const address = walletconnectClass.getAddress()
-
-        dispatch(
-          addWallet({
-            address,
-            type: 'walletconnect',
-          })
-        )
+        dispatch(setNotification(connectNotification))
 
         balance(dispatch, address)
       },
     },
+    // {
+    //   name: 'Wallet Connect',
+    //   icon: WalletconnectClass.icon,
+    //   connect: async (dispatch: AppDispatch) => {
+    //     const walletconnectClass = new WalletconnectClass()
+    //     const canConnectNotification = walletconnectClass.canConnect()
+
+    //     if (isError(canConnectNotification))
+    //       return dispatch(setNotification(canConnectNotification))
+
+    //     const connectNotification = await walletconnectClass.connect()
+
+    //     if (isError(connectNotification))
+    //       return dispatch(setNotification(connectNotification))
+
+    //     const address = walletconnectClass.getAddress()
+
+    //     dispatch(
+    //       addWallet({
+    //         address,
+    //         type: 'walletconnect',
+    //       })
+    //     )
+
+    //     balance(dispatch, address)
+    //   },
+    // },
     {
       name: 'Trust Wallet',
       icon: TrustwalletClass.icon,
       connect: async (dispatch: AppDispatch) => {
         const trustWalletClass = new TrustwalletClass()
-        await trustWalletClass.connect()
+        const canConnectNotification = trustWalletClass.canConnect()
+
+        if (isError(canConnectNotification))
+          return dispatch(setNotification(canConnectNotification))
+
+        const connectNotification = await trustWalletClass.connect()
+
+        if (isError(connectNotification))
+          return dispatch(setNotification(connectNotification))
+
         const address = trustWalletClass.getAddress()
 
         dispatch(
@@ -184,10 +256,10 @@ export const WalletsProviders = () => {
           })
         )
 
+        dispatch(setNotification(connectNotification))
+
         balance(dispatch, address)
       },
     },
-
-    // TODO: WALLETS TO ADD: [TREZOR]
   ]
 }

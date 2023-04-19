@@ -1,3 +1,4 @@
+import { mergeBalance } from '@/services/tokens/format'
 import { mainnetTokens } from '@/services/tokens/tokens'
 import { iToken } from '@/types/token'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
@@ -19,7 +20,10 @@ export const tokensSlice = createSlice({
       action: PayloadAction<{
         newBalance: iToken[]
       }>
-    ) => {},
+    ) => {
+      const mergedState = mergeBalance(state.tokens, action.payload as unknown as iToken[])
+      state.tokens = mergedState
+    },
     updatePrice: (state) => {},
     resetBalance: (state) => {},
   },

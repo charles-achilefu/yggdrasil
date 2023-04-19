@@ -28,6 +28,7 @@ const RuneStats: FC = () => {
       </p>
       {isPositive !== undefined ? (
         <Image
+          className="w-auto h-auto"
           src={`/icons/${isPositive ? 'up' : 'down'}.svg`}
           alt={`${isPositive ? 'up' : 'down'}-icon`}
           width="18"
