@@ -1,4 +1,5 @@
 import { Chain, Chains, WalletClass, walletAddresses } from '@/types/wallet'
+import { generateError, generateSuccess, isError } from '@/utils/notification'
 import { ethers } from 'ethers'
 
 export class XDEFIClass implements WalletClass {
@@ -14,6 +15,20 @@ export class XDEFIClass implements WalletClass {
     if (!this.isXDEFI()) return
 
     this.xfiObject = window.xfi
+  }
+
+  canConnect() {
+    if (!this.isXDEFI)
+      return generateError(
+        'XDEFI was not detected! Please install the extension.'
+      )
+
+    if (window.xfi.bitcoin?.network !== 'mainnet')
+      return generateError('Change your XDEFI network to Mainnet.')
+
+    return generateSuccess(
+      'All checks passed, ready to connect with your XDEFI wallet.'
+    )
   }
 
   async getChainAddress(chain: string, chainName: Chains) {
@@ -35,15 +50,25 @@ export class XDEFIClass implements WalletClass {
   }
 
   async getEvmChainAddress(chainName: Chains[]) {
-    const provider = new ethers.providers.Web3Provider(window.xfi.ethereum)
-    await provider.send('eth_requestAccounts', [])
-    const signer = provider.getSigner()
-    const address = await signer.getAddress()
-    chainName.forEach((chain) => (this.address[chain] = address))
+    try {
+      const provider = new ethers.providers.Web3Provider(window.xfi.ethereum)
+      await provider.send('eth_requestAccounts', [])
+      const signer = provider.getSigner()
+      const address = await signer.getAddress()
+      chainName.forEach((chain) => (this.address[chain] = address))
+      return generateSuccess('XDEFI wallet has been connected!')
+    } catch (e) {
+      return generateError('User request connect rejected, Try again!')
+    }
   }
 
   async connect() {
-    await this.getEvmChainAddress([Chain.Ethereum, Chain.Avalanche])
+    const notification = await this.getEvmChainAddress([
+      Chain.Ethereum,
+      Chain.Avalanche,
+    ])
+
+    if (isError(notification)) return notification
 
     await this.getChainAddress('binance', Chain.BNB)
     await this.getChainAddress('thorchain', Chain.THORChain)
@@ -52,7 +77,8 @@ export class XDEFIClass implements WalletClass {
     await this.getChainAddress('litecoin', Chain.Litecoin)
     await this.getChainAddress('dogecoin', Chain.Dogecoin)
     // await this.getChainAddress('cosmos', Chain.Cosmos)
-    return true
+
+    return notification
   }
 
   async disconnect(): Promise<void> {}

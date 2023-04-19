@@ -4,6 +4,7 @@ import { Client as clientATOM } from '@xchainjs/xchain-cosmos'
 // import { client as clientBTC } from './clients/btc'
 import { Client as clientDOGE, defaultDogeParams } from '@xchainjs/xchain-doge'
 // import { client as clientLTC } from './clients/ltc'
+import { iNotification } from '@/types/notification'
 import { Client as clientBNB } from '@xchainjs/xchain-binance'
 import {
   BlockcypherDataProviders,
@@ -81,6 +82,10 @@ export class KeystoreClass implements WalletClass {
       phrase,
       chainIds: thorChainIds,
     })
+  }
+
+  canConnect(): iNotification {
+    throw new Error('Method not implemented.')
   }
 
   async connect() {
