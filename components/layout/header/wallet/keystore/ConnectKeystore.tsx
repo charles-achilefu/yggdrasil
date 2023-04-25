@@ -1,9 +1,11 @@
 import PopupModal from '@/components/common/PopupModal'
+import { setNotification } from '@/redux/notification'
 import { decrypt } from '@/services/keystore/connect'
 import { Wallet } from '@/types/wallet'
+import { isError } from '@/utils/notification'
 import { Keystore } from '@xchainjs/xchain-crypto'
 import Image from 'next/image'
-import { FC, useState } from 'react'
+import { FC, useMemo, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 interface Props {
@@ -24,6 +26,11 @@ const ConnectKeystore: FC<Props> = ({
   const [fileName, setFileName] = useState('')
   const [keystoreContent, setKeystoreContent] = useState<Keystore>()
   const [password, setPassword] = useState<string>('')
+
+  const canConnect = useMemo(() => {
+    if (!password || !keystoreContent) return false
+    return true
+  }, [keystoreContent, password])
 
   const handleFileLoad = (event: any) => {
     try {
@@ -50,85 +57,69 @@ const ConnectKeystore: FC<Props> = ({
     if (!password || !keystoreContent) return
 
     const response = await decrypt(keystoreContent, password)
+
+    if (isError(response)) return dispatch(setNotification(response))
+
     keystoreWallet.connect(dispatch, response)
     closeKeystoreMenuModal()
   }
 
   return (
-    <PopupModal size={'medium'} onClose={closeKeystoreMenuModal}>
-      <div className="flex flex-col gap-5 p-5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+    <PopupModal
+      title={'Connect Keystore'}
+      size={'medium'}
+      onClose={closeKeystoreMenuModal}
+    >
+      <label className="flex flex-row justify-center items-center p-4 gap-2 w-full h-14 bg-transparent border border-borderUnselected rounded-20 hover:border-borderSelected cursor-pointer">
+        {fileName ? (
+          fileName
+        ) : (
+          <>
             <Image
-              className="cursor-pointer"
-              src="/icons/back.svg"
-              alt="back-icon"
+              src="/icons/upload.svg"
+              alt="upload-icon"
               width="24"
               height="24"
-              onClick={toggleKeystoreMenu}
+              className="mr-2"
             />
-            <h2 className="text-base font-bold">Connect Keystore</h2>
-          </div>
-          <Image
-            className="cursor-pointer"
-            src="/icons/close.svg"
-            alt="close-icon"
-            width="24"
-            height="24"
-            onClick={closeKeystoreMenuModal}
-          />
-        </div>
-        <label className="flex flex-row justify-center items-center p-4 gap-2 w-full h-14 bg-transparent border border-borderUnselected rounded-20 hover:border-borderSelected cursor-pointer">
-          {fileName ? (
-            fileName
-          ) : (
-            <>
-              <Image
-                src="/icons/upload.svg"
-                alt="upload-icon"
-                width="24"
-                height="24"
-                className="mr-2"
-              />
-              Choose file to upload
-            </>
-          )}
-          <input
-            type="file"
-            placeholder="Choose file to upload"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              readFileAsText(e.target.files)
-            }
-            className="hidden"
-          />
-        </label>
+            Choose file to upload
+          </>
+        )}
         <input
-          className="flex items-center p-4 h-14 w-full bg-transparent border border-borderUnselected rounded-20 focus:outline-none hover:border-borderSelected focus:border-borderSelected"
-          type="password"
-          placeholder="Input Password"
-          value={password}
+          type="file"
+          placeholder="Choose file to upload"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPassword(e.target.value)
+            readFileAsText(e.target.files)
           }
+          className="hidden"
         />
-        <button
-          className={`flex items-center justify-center font-bold text-gray3 h-14 rounded-20 bg-smoothgreen
+      </label>
+      <input
+        className="flex items-center p-4 h-14 w-full bg-transparent border border-borderUnselected rounded-20 focus:outline-none hover:border-borderSelected focus:border-borderSelected"
+        type="password"
+        placeholder="Input Password"
+        value={password}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setPassword(e.target.value)
+        }
+      />
+      <button
+        className={`flex items-center justify-center font-bold text-gray3 h-14 rounded-20 bg-smoothgreen
           ${
-            !true && 'opacity-25 cursor-default'
+            !canConnect && 'opacity-25 cursor-default'
           } transition-opacity duration-300`}
-          onClick={connect}
+        onClick={connect}
+      >
+        Connect
+      </button>
+      <div className="flex w-full gap-2 justify-center">
+        <p>Don{"'"}t have a Keystore yet?</p>
+        <button
+          className="text-softgreen underline"
+          onClick={toggleCreateKeystoreModal}
         >
-          Connect
+          Create Keystore
         </button>
-        <div className="flex w-full gap-2 justify-center">
-          <p>Don{"'"}t have a Keystore yet?</p>
-          <button
-            className="text-softgreen underline"
-            onClick={toggleCreateKeystoreModal}
-          >
-            Create Keystore
-          </button>
-        </div>
       </div>
     </PopupModal>
   )

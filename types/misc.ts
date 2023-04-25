@@ -1,6 +1,9 @@
 declare global {
+  interface Navigator {
+    brave?: any
+  }
   interface Window {
-    ethereum: any
+    ethereum?: unknown
     xfi: any
     keplr: any
     getOfflineSigner: any

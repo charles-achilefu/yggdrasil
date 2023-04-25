@@ -1,8 +1,10 @@
 import { AppDispatch } from "@/redux/store"
+import { iNotification } from "./notification"
 
 export interface WalletClass {
   address: walletAddresses
   connect(): void
+  canConnect(): iNotification
   disconnect(): void
   getAddress(): walletAddresses
 }
@@ -10,7 +12,7 @@ export interface WalletClass {
 export interface Wallet {
   name: string
   icon: string
-  connect: (dispatch: AppDispatch, phrase?: string) => Promise<void>
+  connect: (dispatch: AppDispatch, phrase?: string) => Promise<unknown>
 }
 
 export type ConnectionWallets =
@@ -18,7 +20,11 @@ export type ConnectionWallets =
   | 'keystore'
   | 'ledger'
   | 'metamask'
-  | 'kelpr'
+  | 'keplr'
+  | 'coinbase'
+  | 'brave'
+  | 'walletconnect'
+  | 'trustwallet'
 
 export type Chains =
   | 'avax'

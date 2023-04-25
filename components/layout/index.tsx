@@ -1,4 +1,5 @@
 import { FC, ReactNode } from 'react'
+import Toasty from '../common/Toasty'
 import Header from './header'
 
 interface Props {
@@ -7,10 +8,14 @@ interface Props {
 
 const Layout: FC<Props> = ({ children }) => {
   return (
-    <div className="flex bg-gray2 justify-center w-screen h-screen">
-      <Header />
-      <div className="flex-col container mx-auto px-4 sm:px-6 md:px-8">{children}</div>
-    </div>
+    <>
+      <Toasty />
+
+      <div className="bg-gray2 h-screen no-overflow-x no-overflow-y">
+        <Header />
+        <div className="mx-auto max-w-7xl">{children}</div>
+      </div>
+    </>
   )
 }
 

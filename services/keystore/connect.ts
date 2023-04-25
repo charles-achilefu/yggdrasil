@@ -1,3 +1,5 @@
+import { iNotification } from '@/types/notification'
+import { generateError } from '@/utils/notification'
 import {
   decryptFromKeystore,
   encryptToKeyStore,
@@ -33,12 +35,11 @@ export const encrypt = async (
 export const decrypt = async (
   keystore: Keystore,
   password: string
-): Promise<string> => {
+): Promise<string | iNotification> => {
   try {
     const decryptedKeystore = await decryptFromKeystore(keystore, password)
     return decryptedKeystore
   } catch (e) {
-    // TODO: GENERATE ERROR
-    return ''
+    return generateError('Failed to decrypt your keystore, try again with a valid keystore.')
   }
 }

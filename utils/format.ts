@@ -1,4 +1,4 @@
-import { mainnetTokens } from '@/constants/tokens'
+import { mainnetTokens } from '@/services/tokens/tokens'
 import { iToken } from '@/types/token'
 
 export const getFullAssetFromName = (fullAsset: string): iToken | undefined => {

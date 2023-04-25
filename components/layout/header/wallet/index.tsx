@@ -1,5 +1,10 @@
 import { store } from '@/redux/store'
-import { Chains, ConnectionWallets, Wallet, walletAddresses } from '@/types/wallet'
+import {
+  Chains,
+  ConnectionWallets,
+  Wallet,
+  walletAddresses,
+} from '@/types/wallet'
 import { formatAddress } from '@/utils/format'
 import Image from 'next/image'
 import { FC, useEffect, useMemo, useState } from 'react'
@@ -68,7 +73,7 @@ const Wallet: FC = () => {
   return (
     <>
       {isConnected ? (
-        <div className="flex items-center justify-center gap-3 w-1/6 bg-gray1 border-2 border-gray2 rounded-20 h-16 py-1 cursor-pointer">
+        <div className="flex items-center justify-center gap-3 w-1/6 bg-gray1 border-2 border-gray2 rounded-20 h-16 py-1 cursor-pointer md:w-1/3 sm:w-1/2">
           <div className="relative">
             <Image
               src={`/wallets/${walletType}.svg`}
@@ -95,7 +100,7 @@ const Wallet: FC = () => {
         </div>
       ) : (
         <button
-          className="flex items-center font-bold text-gray3 px-4 bg-smoothgreen border-2 border-gray2 rounded-20 sm:px-4 sm:p-2 px-2 py-1 sm:mr-12 sm:h-14 h-16"
+          className="flex items-center justify-center font-bold text-gray3 w-1/6 bg-smoothgreen border-2 border-gray2 rounded-20 h-16 py-1 md:w-1/3 sm:w-1/2"
           onClick={toggleIsConnectModal}
         >
           Connect
@@ -111,10 +116,16 @@ const Wallet: FC = () => {
         />
       )}
       {isKeystoreModalOpen && keystoreWallet && (
-        <KeystoreDialogMenu keystoreWallet={keystoreWallet} closeKeystoreMenuModal={toggleKeystoreMenuModal} />
+        <KeystoreDialogMenu
+          keystoreWallet={keystoreWallet}
+          closeKeystoreMenuModal={toggleKeystoreMenuModal}
+        />
       )}
       {isLedgerModalOpen && ledgerWallet && (
-        <ConnectLedger ledgerWallet={ledgerWallet} closeLedgerModal={toggleLedgerModal} />
+        <ConnectLedger
+          ledgerWallet={ledgerWallet}
+          closeLedgerModal={toggleLedgerModal}
+        />
       )}
     </>
   )
