@@ -52,6 +52,7 @@ export const WalletsProviders = () => {
 
         balance(dispatch, address)
       },
+      send: async (dispatch: AppDispatch) => {},
     },
     {
       name: 'Keplr',
@@ -81,6 +82,8 @@ export const WalletsProviders = () => {
 
         balance(dispatch, address)
       },
+      swap: async (dispatch: AppDispatch) => {},
+      send: async (dispatch: AppDispatch) => {},
     },
     {
       name: 'Metamask',
@@ -110,6 +113,8 @@ export const WalletsProviders = () => {
 
         balance(dispatch, address)
       },
+      swap: async (dispatch: AppDispatch) => {},
+      send: async (dispatch: AppDispatch) => {},
     },
     {
       name: 'Keystore',
@@ -128,6 +133,8 @@ export const WalletsProviders = () => {
 
         balance(dispatch, address)
       },
+      swap: async (dispatch: AppDispatch) => {},
+      send: async (dispatch: AppDispatch) => {},
     },
     {
       name: 'Ledger',
@@ -146,6 +153,8 @@ export const WalletsProviders = () => {
 
         balance(dispatch, address)
       },
+      swap: async (dispatch: AppDispatch) => {},
+      send: async (dispatch: AppDispatch) => {},
     },
     {
       name: 'Coinbase',
@@ -175,6 +184,8 @@ export const WalletsProviders = () => {
 
         balance(dispatch, address)
       },
+      swap: async (dispatch: AppDispatch) => {},
+      send: async (dispatch: AppDispatch) => {},
     },
     {
       name: 'Brave',
@@ -204,6 +215,8 @@ export const WalletsProviders = () => {
 
         balance(dispatch, address)
       },
+      swap: async (dispatch: AppDispatch) => {},
+      send: async (dispatch: AppDispatch) => {},
     },
     // {
     //   name: 'Wallet Connect',
@@ -260,6 +273,8 @@ export const WalletsProviders = () => {
 
         balance(dispatch, address)
       },
+      swap: async (dispatch: AppDispatch) => {},
+      send: async (dispatch: AppDispatch) => {},
     },
   ]
 }

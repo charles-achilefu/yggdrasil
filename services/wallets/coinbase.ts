@@ -5,7 +5,7 @@ import CoinbaseWalletSDK, { CoinbaseWalletProvider } from '@coinbase/wallet-sdk'
 export class CoinbaseClass implements WalletClass {
   static icon: string = '/wallets/coinbase.svg'
   address: walletAddresses = {}
-  coinbaseWallet: CoinbaseWalletProvider | any
+  coinbaseWallet: CoinbaseWalletProvider
 
   constructor() {
     const coinbaseWallet = new CoinbaseWalletSDK({

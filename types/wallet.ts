@@ -13,6 +13,8 @@ export interface Wallet {
   name: string
   icon: string
   connect: (dispatch: AppDispatch, phrase?: string) => Promise<unknown>
+  send: (dispatch: AppDispatch) => Promise<unknown>
+  swap?: (dispatch: AppDispatch) => Promise<unknown>
 }
 
 export type ConnectionWallets =

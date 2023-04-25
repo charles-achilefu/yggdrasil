@@ -1,12 +1,12 @@
-import { getBalance as getBalanceATOM } from './clients/atom'
-import { getBalance as getBalanceAVAX } from './clients/avax'
-import { getBalance as getBalanceBCH } from './clients/bch'
-import { getBalance as getBalanceBNB } from './clients/bnb'
-import { getBalance as getBalanceBTC } from './clients/btc'
-import { getBalance as getBalanceDOGE } from './clients/doge'
-import { getBalance as getBalanceETH } from './clients/eth'
-import { getBalance as getBalanceLTC } from './clients/ltc'
-import { getBalance as getBalanceTHOR } from './clients/thorchain'
+import { getBalance as getBalanceATOM } from '../clients/atom'
+import { getBalance as getBalanceAVAX } from '../clients/avax'
+import { getBalance as getBalanceBCH } from '../clients/bch'
+import { getBalance as getBalanceBNB } from '../clients/bnb'
+import { getBalance as getBalanceBTC } from '../clients/btc'
+import { getBalance as getBalanceDOGE } from '../clients/doge'
+import { getBalance as getBalanceETH } from '../clients/eth'
+import { getBalance as getBalanceLTC } from '../clients/ltc'
+import { getBalance as getBalanceTHOR } from '../clients/thorchain'
 
 export const getBalanceFromAddress = async (
   network: string,

@@ -34,8 +34,10 @@ export const getContractAddressFromToken = (tokenName: string) => {
   }
 }
 
-export const formatAddress = (address: string) => {
-  return `${address.toLowerCase().slice(0, 4)}...${address
+export const formatAddress = (address: string) =>
+  `${address.toLowerCase().slice(0, 4)}...${address
     .toLowerCase()
     .slice(address.length - 4, address.length)}`
-}
+
+export const synthAssetName = (asset: string) =>
+  asset.includes('/') ? asset.split('.')[1] : asset

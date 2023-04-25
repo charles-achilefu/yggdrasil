@@ -1,56 +1,45 @@
+import { Wallet } from '@/types/wallet'
 import { FC, useState } from 'react'
 import ConnectKeystore from './ConnectKeystore'
 import CreateKeystore from './CreateKeystore'
 import KeystoreMenu from './KeystoreMenu'
-import { Wallet } from '@/types/wallet'
 
 interface Props {
   keystoreWallet: Wallet
   closeKeystoreMenuModal: () => void
 }
 
-const KeystoreDialogMenu: FC<Props> = ({ keystoreWallet, closeKeystoreMenuModal }) => {
-  const [isKeystoreMenu, setIsKeystoreMenu] = useState(true)
-  const [isCreateKeystore, setIsCreateKeystore] = useState(false)
-  const [isConnectKeystore, setIsConnectKeystore] = useState(false)
+const KeystoreDialogMenu: FC<Props> = ({
+  keystoreWallet,
+  closeKeystoreMenuModal,
+}) => {
+  const [activeComponent, setActiveComponent] = useState<
+    'menu' | 'create' | 'connect'
+  >('menu')
 
-  const toggleKeystoreMenu = () => {
-    setIsKeystoreMenu(true)
-    setIsConnectKeystore(false)
-    setIsCreateKeystore(false)
-  }
-
-  const toggleCreateKeystoreModal = () => {
-    setIsKeystoreMenu(false)
-    setIsConnectKeystore(false)
-    setIsCreateKeystore(true)
-  }
-
-  const toggleConnectKeystoreModal = () => {
-    setIsKeystoreMenu(false)
-    setIsConnectKeystore(true)
-    setIsCreateKeystore(false)
-  }
+  const toggleKeystoreMenu = () => setActiveComponent('menu')
+  const toggleCreateKeystoreModal = () => setActiveComponent('create')
+  const toggleConnectKeystoreModal = () => setActiveComponent('connect')
 
   return (
     <>
-      {isKeystoreMenu && (
+      {activeComponent === 'menu' && (
         <KeystoreMenu
           closeKeystoreMenuModal={closeKeystoreMenuModal}
           toggleCreateKeystoreModal={toggleCreateKeystoreModal}
           toggleConnectKeystoreModal={toggleConnectKeystoreModal}
         />
       )}
-      {isCreateKeystore && (
+      {activeComponent === 'create' && (
         <CreateKeystore
           closeKeystoreMenuModal={closeKeystoreMenuModal}
           toggleKeystoreMenu={toggleKeystoreMenu}
           toggleConnectKeystoreModal={toggleConnectKeystoreModal}
         />
       )}
-      {isConnectKeystore && (
+      {activeComponent === 'connect' && (
         <ConnectKeystore
-        keystoreWallet={keystoreWallet}
+          keystoreWallet={keystoreWallet}
           closeKeystoreMenuModal={closeKeystoreMenuModal}
           toggleKeystoreMenu={toggleKeystoreMenu}
           toggleCreateKeystoreModal={toggleCreateKeystoreModal}

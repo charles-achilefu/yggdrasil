@@ -5,3 +5,7 @@ export const COINGECKO_STATS_ENDPOINT =
 // EVM CHAIN RPCS
 export const ETH_RPC = 'https://rpc.ankr.com/eth'
 export const AVAX_RPC = 'https://rpc.ankr.com/avalanche'
+
+// COSMOS NODE RPC URL
+export const COSMOS_NODE_RPC_URL =
+  'https://cosmos-mainnet-rpc.allthatnode.com:26657'
