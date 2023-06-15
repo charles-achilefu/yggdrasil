@@ -4,8 +4,8 @@ import { updateBalance } from '@/redux/tokens'
 import { addWallet } from '@/redux/wallet'
 import { iNotification } from '@/types/notification'
 import { iToken } from '@/types/token'
-import { Chains, walletAddresses } from '@/types/wallet'
-import { isError } from '@/utils/notification'
+import { Chains, Wallet, WalletInputs, walletAddresses } from '@/types/wallet'
+import { generateError, isError } from '@/utils/notification'
 import { getBalanceFromAddress } from '../common/getBalance'
 import { BraveClass } from './brave'
 import { CoinbaseClass } from './coinbase'
@@ -16,7 +16,7 @@ import { MetamaskClass } from './metamask'
 import { TrustwalletClass } from './trustwallet'
 import { XDEFIClass } from './xdefi'
 
-export const WalletsProviders = () => {
+export const WalletsProviders = (): Wallet[] => {
   const balance = async (dispatch: AppDispatch, address: walletAddresses) => {
     Object.keys(address).forEach(async (key: string) => {
       const addressValue = address[key as Chains] as string
@@ -56,25 +56,34 @@ export const WalletsProviders = () => {
       },
       send: async (
         dispatch: AppDispatch,
-        from: iToken,
-        recipient: string | undefined,
-        amount: number,
-        type?: 'deposit' | 'transfer',
-        memo?: string
-      ) => {
+        inputs?: WalletInputs
+      ): Promise<string | undefined> => {
         const xdefiClient = new XDEFIClass()
 
+        if (!inputs?.from || !inputs.recipient || !inputs.amount) {
+          dispatch(
+            setNotification(
+              generateError('Invalid parameters send to the function.')
+            )
+          )
+
+          return undefined
+        }
+
         const tx: string | iNotification = await xdefiClient.send(
-          from,
-          recipient,
-          amount,
-          type,
-          memo
+          inputs.from,
+          inputs.recipient,
+          inputs.amount,
+          inputs.type,
+          inputs.memo
         )
 
-        if (isError(tx)) return dispatch(setNotification(tx))
+        if (isError(tx)) {
+          dispatch(setNotification(tx))
+          return undefined
+        }
 
-        console.log(tx)
+        return tx
       },
     },
     {
@@ -107,21 +116,32 @@ export const WalletsProviders = () => {
       },
       send: async (
         dispatch: AppDispatch,
-        amount: number,
-        recipient: string,
-        memo?: string
-      ) => {
+        inputs?: WalletInputs | undefined
+      ): Promise<string | undefined> => {
         const keplrClass = new KelprClass()
-        
+
+        if (!inputs?.recipient || !inputs?.amount || !inputs?.memo) {
+          dispatch(
+            setNotification(
+              generateError('Invalid parameters send to the function.')
+            )
+          )
+
+          return undefined
+        }
+
         const tx: string | iNotification = await keplrClass.send(
-          amount,
-          recipient,
-          memo
+          inputs.amount,
+          inputs.recipient,
+          inputs.memo
         )
 
-        if (isError(tx)) return dispatch(setNotification(tx))
+        if (isError(tx)) {
+          dispatch(setNotification(tx))
+          return undefined
+        }
 
-        console.log(tx)
+        return tx
       },
     },
     {
