@@ -82,7 +82,7 @@ const Navigation: FC = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Navigation
+export default Navigation;
