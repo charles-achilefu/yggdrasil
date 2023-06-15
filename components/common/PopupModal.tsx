@@ -16,7 +16,7 @@ const PopupModal: FC<Props> = ({ children, title, onClose, size }) => {
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        onClose()
+        handleClose()
       }
     }
     document.addEventListener('keydown', handleEscape)
@@ -25,6 +25,7 @@ const PopupModal: FC<Props> = ({ children, title, onClose, size }) => {
     return () => {
       document.removeEventListener('keydown', handleEscape)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onClose])
 
   const handleClose = () => {

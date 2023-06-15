@@ -1,5 +1,9 @@
+import { iToken } from '@/types/token'
 import { Chain, Chains, WalletClass, walletAddresses } from '@/types/wallet'
+import { synthAssetName } from '@/utils/format'
+import { getXdefiNetworkPrimitive } from '@/utils/network'
 import { generateError, generateSuccess, isError } from '@/utils/notification'
+import { assetFromString } from '@xchainjs/xchain-util'
 import { ethers } from 'ethers'
 
 export class XDEFIClass implements WalletClass {
@@ -79,6 +83,56 @@ export class XDEFIClass implements WalletClass {
     // await this.getChainAddress('cosmos', Chain.Cosmos)
 
     return notification
+  }
+
+  async send(
+    from: iToken,
+    recipient: string | undefined,
+    amount: number,
+    type: 'deposit' | 'transfer' = 'transfer',
+    memo = ''
+  ) {
+    const asset = assetFromString(synthAssetName(from.fullAsset))
+
+    if (!asset)
+      return generateError('Asset not found. Please contact a developer.')
+
+    const network = getXdefiNetworkPrimitive(from.chain.toLowerCase())
+
+    const tx = new Promise((resolve) => {
+      window.xfi[network].request(
+        { method: 'request_accounts', params: [] },
+        (error: any, address: string[]) => {
+          if (error) return generateError('Failed to get your wallet address!')
+
+          window.xfi[network].request(
+            {
+              method: type,
+              params: [
+                {
+                  asset: asset,
+                  from: address[0],
+                  recipient: recipient,
+                  amount: {
+                    amount: (Number(amount) * 10 ** from.decimals).toFixed(0),
+                    decimals: from.decimals,
+                  },
+                  memo,
+                },
+              ],
+            },
+            (error: any, tx: string) => {
+              if (error)
+                return generateError('Failed to send tokens. Please try again.')
+
+              resolve(tx)
+            }
+          )
+        }
+      )
+    })
+
+    return (await tx) as string
   }
 
   async disconnect(): Promise<void> {}

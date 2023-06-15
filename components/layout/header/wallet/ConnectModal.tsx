@@ -76,7 +76,7 @@ const ConnectModal: FC<Props> = ({
         </label>
       </div>
       <div className="grid grid-cols-4 gap-2 md:grid-cols-3 sm:grid-cols-2  sm:overflow-auto sm:h-52">
-        {WalletsProviders().map((wallet, index) => {
+        {WalletsProviders().map((wallet: Wallet, index) => {
           return (
             <div
               className={`flex flex-col justify-center items-center gap-4 cursor-pointer h-28 bg-transparent border border-borderUnselected hover:border-borderSelected hover:scale-105 transition-all duration-300 ease-in-out rounded-20 font-medium text-sm ${

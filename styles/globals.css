@@ -2,15 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  @font-face {
+    font-family: 'AeonikPro';
+    src: url('/font/AeonikPro-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'AeonikPro';
+    src: url('/font/AeonikPro-Regular.woff2') format('woff2');
+    font-weight: 500;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'AeonikPro';
+    src: url('/font/AeonikPro-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-display: swap;
+  }
+}
+
 body {
   color: rgb(255, 255, 255, 0.9);
   user-select: none;
+  font-family: 'AeonikPro';
 }
 
-.no-overflow-x {
-  overflow-x: hidden;
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #5EE8CE #1E1F25;
 }
 
-.no-overflow-y {
-  overflow-y: hidden;
+/* Chrome, Edge and Safari */
+*::-webkit-scrollbar {
+  width: 5px;
+  width: 5px;
+}
+*::-webkit-scrollbar-track {
+  border-radius: 20px;
+  background-color: #1E1F25;
+}
+
+*::-webkit-scrollbar-track:hover {
+  background-color: #1E1F25;
+}
+
+*::-webkit-scrollbar-track:active {
+  background-color: #1E1F25;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: #5EE8CE;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #5EE8CE;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: #5EE8CE;
 }

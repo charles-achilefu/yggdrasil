@@ -2,8 +2,10 @@ import { setNotification } from '@/redux/notification'
 import { AppDispatch } from '@/redux/store'
 import { updateBalance } from '@/redux/tokens'
 import { addWallet } from '@/redux/wallet'
-import { Chains, walletAddresses } from '@/types/wallet'
-import { isError } from '@/utils/notification'
+import { iNotification } from '@/types/notification'
+import { iToken } from '@/types/token'
+import { Chains, Wallet, WalletInputs, walletAddresses } from '@/types/wallet'
+import { generateError, isError } from '@/utils/notification'
 import { getBalanceFromAddress } from '../common/getBalance'
 import { BraveClass } from './brave'
 import { CoinbaseClass } from './coinbase'
@@ -14,7 +16,7 @@ import { MetamaskClass } from './metamask'
 import { TrustwalletClass } from './trustwallet'
 import { XDEFIClass } from './xdefi'
 
-export const WalletsProviders = () => {
+export const WalletsProviders = (): Wallet[] => {
   const balance = async (dispatch: AppDispatch, address: walletAddresses) => {
     Object.keys(address).forEach(async (key: string) => {
       const addressValue = address[key as Chains] as string
@@ -52,6 +54,37 @@ export const WalletsProviders = () => {
 
         balance(dispatch, address)
       },
+      send: async (
+        dispatch: AppDispatch,
+        inputs?: WalletInputs
+      ): Promise<string | undefined> => {
+        const xdefiClient = new XDEFIClass()
+
+        if (!inputs?.from || !inputs.recipient || !inputs.amount) {
+          dispatch(
+            setNotification(
+              generateError('Invalid parameters send to the function.')
+            )
+          )
+
+          return undefined
+        }
+
+        const tx: string | iNotification = await xdefiClient.send(
+          inputs.from,
+          inputs.recipient,
+          inputs.amount,
+          inputs.type,
+          inputs.memo
+        )
+
+        if (isError(tx)) {
+          dispatch(setNotification(tx))
+          return undefined
+        }
+
+        return tx
+      },
     },
     {
       name: 'Keplr',
@@ -80,6 +113,35 @@ export const WalletsProviders = () => {
         dispatch(setNotification(connectNotification))
 
         balance(dispatch, address)
+      },
+      send: async (
+        dispatch: AppDispatch,
+        inputs?: WalletInputs | undefined
+      ): Promise<string | undefined> => {
+        const keplrClass = new KelprClass()
+
+        if (!inputs?.recipient || !inputs?.amount || !inputs?.memo) {
+          dispatch(
+            setNotification(
+              generateError('Invalid parameters send to the function.')
+            )
+          )
+
+          return undefined
+        }
+
+        const tx: string | iNotification = await keplrClass.send(
+          inputs.amount,
+          inputs.recipient,
+          inputs.memo
+        )
+
+        if (isError(tx)) {
+          dispatch(setNotification(tx))
+          return undefined
+        }
+
+        return tx
       },
     },
     {
@@ -110,6 +172,8 @@ export const WalletsProviders = () => {
 
         balance(dispatch, address)
       },
+      swap: async (dispatch: AppDispatch) => {},
+      send: async (dispatch: AppDispatch) => {},
     },
     {
       name: 'Keystore',
@@ -128,6 +192,8 @@ export const WalletsProviders = () => {
 
         balance(dispatch, address)
       },
+      swap: async (dispatch: AppDispatch) => {},
+      send: async (dispatch: AppDispatch) => {},
     },
     {
       name: 'Ledger',
@@ -146,6 +212,8 @@ export const WalletsProviders = () => {
 
         balance(dispatch, address)
       },
+      swap: async (dispatch: AppDispatch) => {},
+      send: async (dispatch: AppDispatch) => {},
     },
     {
       name: 'Coinbase',
@@ -175,6 +243,8 @@ export const WalletsProviders = () => {
 
         balance(dispatch, address)
       },
+      swap: async (dispatch: AppDispatch) => {},
+      send: async (dispatch: AppDispatch) => {},
     },
     {
       name: 'Brave',
@@ -204,6 +274,8 @@ export const WalletsProviders = () => {
 
         balance(dispatch, address)
       },
+      swap: async (dispatch: AppDispatch) => {},
+      send: async (dispatch: AppDispatch) => {},
     },
     // {
     //   name: 'Wallet Connect',
@@ -260,6 +332,8 @@ export const WalletsProviders = () => {
 
         balance(dispatch, address)
       },
+      swap: async (dispatch: AppDispatch) => {},
+      send: async (dispatch: AppDispatch) => {},
     },
   ]
 }

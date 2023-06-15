@@ -32,6 +32,8 @@ const Toasty: FC = () => {
         color: 'white',
         lineHeight: '16.8px',
         maxWidth: '1000px',
+        transitionProperty: 'all',
+        transitionDuration: '500ms',
       },
       // Custom Icon
       icon: (
