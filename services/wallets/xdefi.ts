@@ -89,8 +89,8 @@ export class XDEFIClass implements WalletClass {
     from: iToken,
     recipient: string | undefined,
     amount: number,
-    memo = '',
-    type: 'deposit' | 'transfer' = 'transfer'
+    type: 'deposit' | 'transfer' = 'transfer',
+    memo = ''
   ) {
     const asset = assetFromString(synthAssetName(from.fullAsset))
 

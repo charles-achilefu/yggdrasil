@@ -2,6 +2,8 @@ import { setNotification } from '@/redux/notification'
 import { AppDispatch } from '@/redux/store'
 import { updateBalance } from '@/redux/tokens'
 import { addWallet } from '@/redux/wallet'
+import { iNotification } from '@/types/notification'
+import { iToken } from '@/types/token'
 import { Chains, walletAddresses } from '@/types/wallet'
 import { isError } from '@/utils/notification'
 import { getBalanceFromAddress } from '../common/getBalance'
@@ -52,7 +54,28 @@ export const WalletsProviders = () => {
 
         balance(dispatch, address)
       },
-      send: async (dispatch: AppDispatch) => {},
+      send: async (
+        dispatch: AppDispatch,
+        from: iToken,
+        recipient: string | undefined,
+        amount: number,
+        type?: 'deposit' | 'transfer',
+        memo?: string
+      ) => {
+        const xdefiClient = new XDEFIClass()
+
+        const tx: string | iNotification = await xdefiClient.send(
+          from,
+          recipient,
+          amount,
+          type,
+          memo
+        )
+
+        if (isError(tx)) return dispatch(setNotification(tx))
+
+        console.log(tx)
+      },
     },
     {
       name: 'Keplr',
@@ -82,8 +105,24 @@ export const WalletsProviders = () => {
 
         balance(dispatch, address)
       },
-      swap: async (dispatch: AppDispatch) => {},
-      send: async (dispatch: AppDispatch) => {},
+      send: async (
+        dispatch: AppDispatch,
+        amount: number,
+        recipient: string,
+        memo?: string
+      ) => {
+        const keplrClass = new KelprClass()
+        
+        const tx: string | iNotification = await keplrClass.send(
+          amount,
+          recipient,
+          memo
+        )
+
+        if (isError(tx)) return dispatch(setNotification(tx))
+
+        console.log(tx)
+      },
     },
     {
       name: 'Metamask',
